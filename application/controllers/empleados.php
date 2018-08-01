@@ -31,11 +31,28 @@ class Empleados extends CI_Controller {
 		$this->layout->view("empleados", compact('empleados'));
 	}
 
+	private function noEsValidoFormulario() {
+        return $this->form_validation->run() === false;
+    }
+
+    private function validarNombre() {
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('nombre', 'El nombre ', 'is_unique[empleados.nombre]');
+    }
+
+
 	public function guardar()
 	{
+
 		if($this->input->post())
 		{
-			
+			$this->validarNombre();
+        if ($this->noEsValidoFormulario()) {
+            // var_dump(validation_errors());
+            echo "<script>alert('Ya existe un empleado con ese nombre')
+             window.location= '".base_url()."'
+            </script>";
+        } else {
 			try
 			{
 				$this->db->trans_begin();
@@ -50,27 +67,37 @@ class Empleados extends CI_Controller {
 		
 			header("Location:".base_url());
 		}
+		}
 	}
 
 	public function modificar(string $nombre = null)
 	{
+		
 		if (is_null($nombre))
 		{
 			header('location:'.base_url());
 		}
 		$empleado = $this->empleadosModel->getempleado($nombre);
-		
+
 		if(!($empleado))
 		{
 			header('location:'.base_url());
 		}
 		$this->layout->view('modificar', compact('empleado'));
-	}
+			}
 
 	public function actualizar()
 	{
 		if($this->input->post())
 		{
+
+			$this->validarNombre();
+	        if ($this->noEsValidoFormulario()) {
+	            // var_dump(validation_errors());
+	            echo "<script>alert('Ya existe un empleado con ese nombre')
+	             window.location= '".base_url()."'
+	            </script>";
+	        } else {
 			$nombre_ant=$_POST['nombre_ant'];
 			unset($_POST['nombre_ant']);
 			if ($this->empleadosModel->updateempleado($nombre_ant, $_POST))
@@ -82,6 +109,7 @@ class Empleados extends CI_Controller {
 				header("Location:".base_url().'empleados/modificar/'.$_POST['nombre']);
 			}
 		}
+	}
 	}
 
 	public function eliminar(string $nombre = null)

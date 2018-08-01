@@ -40,7 +40,7 @@
 
 <div class="row">
 	<div class="col offset-l2 offset-m2 l8 m8 s12">
-	<table border="1" class="striped responsive-table">
+	<table border="1" class="striped responsive-table" id="listado">
 		<caption>Listado</caption>
 		<thead>
 			<tr>

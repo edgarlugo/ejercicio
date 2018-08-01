@@ -13,22 +13,22 @@
 
 		echo $divi;
 		echo form_label('Nombre');
-		echo form_input(array('type'=>'text', 'name'=>'nombre', 'required'=>true, 'class'=>'validate'));
+		echo form_input(array('type'=>'text', 'name'=>'nombre', 'value' => $empleado->nombre, 'required'=>true, 'class'=>'validate'));
 		echo $divc;
 
 		echo $divi;
-		echo form_input(array('type'=>'text', 'name'=>'apellido', 'required'=>true, 'class'=>'validate'));
+		echo form_input(array('type'=>'text', 'name'=>'apellido', 'value' => $empleado->apellido, 'required'=>true, 'class'=>'validate'));
 		echo form_label('Apellido');
 		echo $divc;
 		echo $clearfix;
 
 		echo $divi;
 		echo form_label('Edad');
-		echo form_input(array('type'=>'text', 'name'=>'edad', 'required'=>true, 'class'=>'validate','pattern'=>'[0-9][0-9]'));
+		echo form_input(array('type'=>'text', 'name'=>'edad', 'value' => $empleado->edad, 'required'=>true, 'class'=>'validate','pattern'=>'[0-9][0-9]'));
 		echo $divc;
 
 		echo $divi;
-		echo form_input(array('type'=>'text', 'name'=>'cargo', 'required'=>true, 'class'=>'validate'));
+		echo form_input(array('type'=>'text', 'name'=>'cargo', 'value' => $empleado->cargo, 'required'=>true, 'class'=>'validate'));
 		echo form_label('Cargo');
 		echo $divc;
 		echo $clearfix;
