@@ -21,7 +21,7 @@
 
 		echo $divi;
 		echo form_label('Edad');
-		echo form_input(array('type'=>'text', 'name'=>'edad', 'required'=>true, 'class'=>'validate'));
+		echo form_input(array('type'=>'text', 'name'=>'edad', 'required'=>true, 'class'=>'validate','pattern'=>'[0-9][0-9]'));
 		echo $divc;
 
 		echo $divi;
@@ -49,7 +49,7 @@
 				<th>Edad</th>
 				<th>Cargo</th>
 				<th>Opciones</th>
-				<th><a href='empleados/imprimir'>Imprimir</a></th>
+				<th><a href='index.php/empleados/imprimir'>Imprimir</a></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -61,8 +61,8 @@
 				<td>{$empleado->apellido}</td>
 				<td>{$empleado->edad}</td>
 				<td>{$empleado->cargo}</td>
-				<td><a href='empleados/modificar/{$empleado->nombre}'>Modificar</a></td>
-				<td><a href='empleados/eliminar/{$empleado->nombre}'>Eliminar</a></td>
+				<td><a href='index.php/empleados/modificar/{$empleado->nombre}'>Modificar</a></td>
+				<td><a href='index.php/empleados/eliminar/{$empleado->nombre}'>Eliminar</a></td>
 				</tr>";
 			}
 			

@@ -26,7 +26,7 @@ class Empleados extends CI_Controller {
 	}
 	public function index()
 	{   
-		
+
 		$empleados = $this->empleadosModel->getempleados();
 		$this->layout->view("empleados", compact('empleados'));
 	}
@@ -35,16 +35,11 @@ class Empleados extends CI_Controller {
 	{
 		if($this->input->post())
 		{
-			$nombre = $_POST["nombre"];
-			$apellido = $_POST["apellido"];
-			$estatura = $_POST["estatura"];
+			
 			try
 			{
 				$this->db->trans_begin();
 				$this->empleadosModel->setempleado($_POST);
-				$id_empleado = $this->db->insert_id();
-				$codigo = 'ES'.$id_empleado;
-				$this->empleadosModel->setCodigo($id_empleado, $codigo);
 				$this->db->trans_commit();
 
 			}
@@ -57,13 +52,13 @@ class Empleados extends CI_Controller {
 		}
 	}
 
-	public function modificar(int $id_empleado = null)
+	public function modificar(string $nombre = null)
 	{
-		if (is_null($id_empleado))
+		if (is_null($nombre))
 		{
 			header('location:'.base_url());
 		}
-		$empleado = $this->empleadosModel->getempleado($id_empleado);
+		$empleado = $this->empleadosModel->getempleado($nombre);
 		
 		if(!($empleado))
 		{
@@ -76,24 +71,26 @@ class Empleados extends CI_Controller {
 	{
 		if($this->input->post())
 		{
-			if ($this->empleadosModel->updateempleado($_POST['id_empleado'], $_POST))
+			$nombre_ant=$_POST['nombre_ant'];
+			unset($_POST['nombre_ant']);
+			if ($this->empleadosModel->updateempleado($nombre_ant, $_POST))
 			{
 				header("Location:".base_url());
 			}
 			else
 			{
-				header("Location:".base_url().'empleados/modificar/'.$_POST['id_empleado']);
+				header("Location:".base_url().'empleados/modificar/'.$_POST['nombre']);
 			}
 		}
 	}
 
-	public function eliminar(int $id_empleado = null)
+	public function eliminar(string $nombre = null)
 	{
-		if (is_null($id_empleado))
+		if (is_null($nombre))
 		{
 			header('location:'.base_url());
 		}
-		$this->empleadosModel->deleteempleado($id_empleado);
+		$this->empleadosModel->deleteempleado($nombre);
 		header('location:'.base_url());
 	}
 }

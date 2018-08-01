@@ -12,24 +12,19 @@ class empleadosModel extends CI_Model
 		return $this->db->insert('empleados', $datos);
 	}
 
-	public function updateempleado(int $id_empleado, array $datos)
+	public function updateempleado(string $nombre, array $datos)
 	{
-		return $this->db->where('id_empleado', $id_empleado)->update('empleados', $datos);
+		return $this->db->where('nombre', $nombre)->update('empleados', $datos);
 	}
 
-	public function getempleado(int $id_empleado)
+	public function getempleado(string $nombre)
 	{
-		return $this->db->where('id_empleado', $id_empleado)->get('empleados')->row();
+		return $this->db->where('nombre', $nombre)->get('empleados')->row();
 	}
 
-	public function setCodigo(int $id_empleado, string $codigo)
-	{
-		$datos = array('codigo' => $codigo);
-		return $this->db->where('id_empleado', $id_empleado)->update('empleados', $datos);
-	}
 
-	public function deleteempleado(int $id_empleado)
+	public function deleteempleado(string $nombre)
 	{
-		return $this->db->where('id_empleado', $id_empleado)->delete('empleados');
+		return $this->db->where('nombre', $nombre)->delete('empleados');
 	}
 }
