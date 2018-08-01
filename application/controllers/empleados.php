@@ -121,4 +121,24 @@ class Empleados extends CI_Controller {
 		$this->empleadosModel->deleteempleado($nombre);
 		header('location:'.base_url());
 	}
+
+	public function imprimir()
+	{
+		// include 'xlsxwriter.php';
+
+		$data = array(
+		    array('nombre','apellido','edad','cargo')
+		);
+		$resultado=$this->db->query("SELECT * FROM empleados")->result_array();
+
+		foreach ($resultado as $row)
+		{
+		        array_push($data, $row);
+		}
+
+		$writer = $this->xlsxwriter;
+		$writer->writeSheet($data);
+		$writer->writeToFile('listado.xlsx');
+		header('location:'.base_url());
+	}
 }
